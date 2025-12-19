@@ -156,7 +156,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
     }
     val backdrop = rememberLayerBackdrop()
     StyledScaffold(
-        title = "Setting Up",
+        title = stringResource(R.string.setting_up),
         actionButtons = listOf(
             {scaffoldBackdrop ->
                 StyledIconButton(
@@ -260,7 +260,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                                 )
                             } else {
                                 Text(
-                                    "Check Root Access",
+                                    stringResource(R.string.check_root_access),
                                     style = TextStyle(
                                         fontSize = 16.sp,
                                         fontWeight = FontWeight.Medium,
@@ -276,7 +276,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
 
                         AnimatedContent(
                             targetState = if (hasStarted) getStatusTitle(progressState,
-                                moduleEnabled, bluetoothToggled) else "Setup Required",
+                                moduleEnabled, bluetoothToggled) else stringResource(R.string.setup_required),
                             transitionSpec = { fadeIn() togetherWith fadeOut() }
                         ) { text ->
                             Text(
@@ -297,7 +297,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                             targetState = if (hasStarted)
                                 getStatusDescription(progressState, moduleEnabled, bluetoothToggled)
                             else
-                                "AirPods functionality requires one-time setup for hooking into Bluetooth library",
+                                stringResource(R.string.setup_required_desc),
                             transitionSpec = { fadeIn() togetherWith fadeOut() }
                         ) { text ->
                             Text(
@@ -326,7 +326,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                                 shape = RoundedCornerShape(8.dp)
                             ) {
                                 Text(
-                                    "Start Setup",
+                                    stringResource(R.string.start_setup),
                                     style = TextStyle(
                                         fontSize = 16.sp,
                                         fontWeight = FontWeight.Medium,
@@ -381,7 +381,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                                             shape = RoundedCornerShape(8.dp)
                                         ) {
                                             Text(
-                                                "I've Enabled/Reactivated the Module",
+                                                stringResource(R.string.module_enabled_confirm),
                                                 style = TextStyle(
                                                     fontSize = 16.sp,
                                                     fontWeight = FontWeight.Medium,
@@ -401,7 +401,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                                             shape = RoundedCornerShape(8.dp)
                                         ) {
                                             Text(
-                                                "I've Toggled Bluetooth",
+                                                stringResource(R.string.bluetooth_toggled_confirm),
                                                 style = TextStyle(
                                                     fontSize = 16.sp,
                                                     fontWeight = FontWeight.Medium,
@@ -425,7 +425,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                                             shape = RoundedCornerShape(8.dp)
                                         ) {
                                             Text(
-                                                "Continue to Settings",
+                                                stringResource(R.string.continue_to_settings),
                                                 style = TextStyle(
                                                     fontSize = 16.sp,
                                                     fontWeight = FontWeight.Medium,
@@ -475,7 +475,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        "Try Again",
+                        stringResource(R.string.try_again),
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
@@ -489,10 +489,10 @@ fun Onboarding(navController: NavController, activityContext: Context) {
         if (showSkipDialog) {
             AlertDialog(
                 onDismissRequest = { showSkipDialog = false },
-                title = { Text("Skip Setup") },
+                title = { Text(stringResource(R.string.skip_setup)) },
                 text = {
                     Text(
-                        "Have you installed the root module that patches the Bluetooth library directly? This option is for users who have manually patched their system instead of using the dynamic hook.",
+                        stringResource(R.string.skip_setup_desc),
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontFamily = FontFamily(Font(R.font.sf_pro))
@@ -512,7 +512,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                         }
                     ) {
                         Text(
-                            "Yes, Skip Setup",
+                            stringResource(R.string.yes_skip_setup),
                             color = accentColor,
                             fontWeight = FontWeight.Bold
                         )
@@ -522,7 +522,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                     TextButton(
                         onClick = { showSkipDialog = false }
                     ) {
-                        Text("Cancel")
+                        Text(stringResource(R.string.cancel))
                     }
                 },
                 containerColor = backgroundColor,
@@ -582,6 +582,7 @@ private fun StatusIcon(
     }
 }
 
+@Composable
 private fun getStatusTitle(
     state: RadareOffsetFinder.ProgressState,
     moduleEnabled: Boolean,
@@ -590,24 +591,25 @@ private fun getStatusTitle(
     return when (state) {
         is RadareOffsetFinder.ProgressState.Success -> {
             when {
-                !moduleEnabled -> "Enable Xposed Module"
-                !bluetoothToggled -> "Toggle Bluetooth"
-                else -> "Setup Complete"
+                !moduleEnabled -> stringResource(R.string.enable_xposed_module)
+                !bluetoothToggled -> stringResource(R.string.toggle_bluetooth)
+                else -> stringResource(R.string.setup_complete)
             }
         }
-        is RadareOffsetFinder.ProgressState.Idle -> "Getting Ready"
-        is RadareOffsetFinder.ProgressState.CheckingExisting -> "Checking if radare2 already downloaded"
-        is RadareOffsetFinder.ProgressState.Downloading -> "Downloading radare2"
-        is RadareOffsetFinder.ProgressState.DownloadProgress -> "Downloading radare2"
-        is RadareOffsetFinder.ProgressState.Extracting -> "Extracting radare2"
-        is RadareOffsetFinder.ProgressState.MakingExecutable -> "Setting executable permissions"
-        is RadareOffsetFinder.ProgressState.FindingOffset -> "Finding function offset"
-        is RadareOffsetFinder.ProgressState.SavingOffset -> "Saving offset"
-        is RadareOffsetFinder.ProgressState.Cleaning -> "Cleaning Up"
-        is RadareOffsetFinder.ProgressState.Error -> "Setup Failed"
+        is RadareOffsetFinder.ProgressState.Idle -> stringResource(R.string.getting_ready)
+        is RadareOffsetFinder.ProgressState.CheckingExisting -> stringResource(R.string.checking_radare2)
+        is RadareOffsetFinder.ProgressState.Downloading -> stringResource(R.string.downloading_radare2)
+        is RadareOffsetFinder.ProgressState.DownloadProgress -> stringResource(R.string.downloading_radare2)
+        is RadareOffsetFinder.ProgressState.Extracting -> stringResource(R.string.extracting_radare2)
+        is RadareOffsetFinder.ProgressState.MakingExecutable -> stringResource(R.string.setting_permissions)
+        is RadareOffsetFinder.ProgressState.FindingOffset -> stringResource(R.string.finding_offset)
+        is RadareOffsetFinder.ProgressState.SavingOffset -> stringResource(R.string.saving_offset)
+        is RadareOffsetFinder.ProgressState.Cleaning -> stringResource(R.string.cleaning_up)
+        is RadareOffsetFinder.ProgressState.Error -> stringResource(R.string.setup_failed)
     }
 }
 
+@Composable
 private fun getStatusDescription(
     state: RadareOffsetFinder.ProgressState,
     moduleEnabled: Boolean,
@@ -616,20 +618,20 @@ private fun getStatusDescription(
     return when (state) {
         is RadareOffsetFinder.ProgressState.Success -> {
             when {
-                !moduleEnabled -> "Please enable the LibrePods Xposed module in your Xposed manager (e.g. LSPosed). If already enabled, disable and re-enable it."
-                !bluetoothToggled -> "Please turn off and then turn on Bluetooth to apply the changes."
-                else -> "All set! You can now use your AirPods with enhanced functionality."
+                !moduleEnabled -> stringResource(R.string.enable_module_desc)
+                !bluetoothToggled -> stringResource(R.string.toggle_bluetooth_desc)
+                else -> stringResource(R.string.setup_complete_desc)
             }
         }
-        is RadareOffsetFinder.ProgressState.Idle -> "Preparing"
-        is RadareOffsetFinder.ProgressState.CheckingExisting -> "Checking if radare2 are already installed"
-        is RadareOffsetFinder.ProgressState.Downloading -> "Starting radare2 download"
-        is RadareOffsetFinder.ProgressState.DownloadProgress -> "Downloading radare2"
-        is RadareOffsetFinder.ProgressState.Extracting -> "Extracting radare2"
-        is RadareOffsetFinder.ProgressState.MakingExecutable -> "Setting executable permissions on radare2 binaries"
-        is RadareOffsetFinder.ProgressState.FindingOffset -> "Looking for the required Bluetooth function in system libraries"
-        is RadareOffsetFinder.ProgressState.SavingOffset -> "Saving the function offset"
-        is RadareOffsetFinder.ProgressState.Cleaning -> "Removing temporary extracted files"
+        is RadareOffsetFinder.ProgressState.Idle -> stringResource(R.string.preparing)
+        is RadareOffsetFinder.ProgressState.CheckingExisting -> stringResource(R.string.checking_radare2_desc)
+        is RadareOffsetFinder.ProgressState.Downloading -> stringResource(R.string.downloading_radare2_start)
+        is RadareOffsetFinder.ProgressState.DownloadProgress -> stringResource(R.string.downloading_radare2)
+        is RadareOffsetFinder.ProgressState.Extracting -> stringResource(R.string.extracting_radare2_desc)
+        is RadareOffsetFinder.ProgressState.MakingExecutable -> stringResource(R.string.setting_permissions_desc)
+        is RadareOffsetFinder.ProgressState.FindingOffset -> stringResource(R.string.finding_offset_desc)
+        is RadareOffsetFinder.ProgressState.SavingOffset -> stringResource(R.string.saving_offset_desc)
+        is RadareOffsetFinder.ProgressState.Cleaning -> stringResource(R.string.cleaning_up_desc)
         is RadareOffsetFinder.ProgressState.Error -> state.message
     }
 }

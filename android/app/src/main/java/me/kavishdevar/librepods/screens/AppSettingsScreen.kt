@@ -655,7 +655,7 @@ fun AppSettingsScreen(navController: NavController) {
                     onDismissRequest = { showResetDialog.value = false },
                     title = {
                         Text(
-                            "Reset Hook Offset",
+                            stringResource(R.string.reset_hook_offset),
                             fontFamily = FontFamily(Font(R.font.sf_pro)),
                             fontWeight = FontWeight.Medium
                         )
@@ -706,7 +706,7 @@ fun AppSettingsScreen(navController: NavController) {
                             onClick = { showResetDialog.value = false }
                         ) {
                             Text(
-                                "Cancel",
+                                stringResource(R.string.cancel),
                                 fontFamily = FontFamily(Font(R.font.sf_pro)),
                                 fontWeight = FontWeight.Medium
                             )
@@ -761,10 +761,12 @@ fun AppSettingsScreen(navController: NavController) {
                     confirmButton = {
                         val successText = stringResource(R.string.irk_set_success)
                         val errorText = stringResource(R.string.error_converting_hex)
+                        val unknownErrorText = stringResource(R.string.unknown_error)
+                        val hexValidationError = stringResource(R.string.must_be_32_hex_chars)
                         TextButton(
                             onClick = {
                                 if (!validateHexInput(irkValue.value)) {
-                                    irkError.value = "Must be exactly 32 hex characters"
+                                    irkError.value = hexValidationError
                                     return@TextButton
                                 }
 
@@ -781,12 +783,12 @@ fun AppSettingsScreen(navController: NavController) {
                                     Toast.makeText(context, successText, Toast.LENGTH_SHORT).show()
                                     showIrkDialog.value = false
                                 } catch (e: Exception) {
-                                    irkError.value = errorText + " " + (e.message ?: "Unknown error")
+                                    irkError.value = errorText + " " + (e.message ?: unknownErrorText)
                                 }
                             }
                         ) {
                             Text(
-                                "Save",
+                                stringResource(R.string.save),
                                 fontFamily = FontFamily(Font(R.font.sf_pro)),
                                 fontWeight = FontWeight.Medium
                             )
@@ -797,7 +799,7 @@ fun AppSettingsScreen(navController: NavController) {
                             onClick = { showIrkDialog.value = false }
                         ) {
                             Text(
-                                "Cancel",
+                                stringResource(R.string.cancel),
                                 fontFamily = FontFamily(Font(R.font.sf_pro)),
                                 fontWeight = FontWeight.Medium
                             )
@@ -852,10 +854,12 @@ fun AppSettingsScreen(navController: NavController) {
                     confirmButton = {
                         val successText = stringResource(R.string.encryption_key_set_success)
                         val errorText = stringResource(R.string.error_converting_hex)
+                        val unknownErrorText = stringResource(R.string.unknown_error)
+                        val hexValidationError = stringResource(R.string.must_be_32_hex_chars)
                         TextButton(
                             onClick = {
                                 if (!validateHexInput(encKeyValue.value)) {
-                                    encKeyError.value = "Must be exactly 32 hex characters"
+                                    encKeyError.value = hexValidationError
                                     return@TextButton
                                 }
 
@@ -872,12 +876,12 @@ fun AppSettingsScreen(navController: NavController) {
                                     Toast.makeText(context, successText, Toast.LENGTH_SHORT).show()
                                     showEncKeyDialog.value = false
                                 } catch (e: Exception) {
-                                    encKeyError.value = errorText + " " + (e.message ?: "Unknown error")
+                                    encKeyError.value = errorText + " " + (e.message ?: unknownErrorText)
                                 }
                             }
                         ) {
                             Text(
-                                "Save",
+                                stringResource(R.string.save),
                                 fontFamily = FontFamily(Font(R.font.sf_pro)),
                                 fontWeight = FontWeight.Medium
                             )
@@ -888,7 +892,7 @@ fun AppSettingsScreen(navController: NavController) {
                             onClick = { showEncKeyDialog.value = false }
                         ) {
                             Text(
-                                "Cancel",
+                                stringResource(R.string.cancel),
                                 fontFamily = FontFamily(Font(R.font.sf_pro)),
                                 fontWeight = FontWeight.Medium
                             )
@@ -957,7 +961,7 @@ fun AppSettingsScreen(navController: NavController) {
                             }
                         ) {
                             Text(
-                                "Save",
+                                stringResource(R.string.save),
                                 fontFamily = FontFamily(Font(R.font.sf_pro)),
                                 fontWeight = FontWeight.Medium
                             )
@@ -968,7 +972,7 @@ fun AppSettingsScreen(navController: NavController) {
                             onClick = { showCameraDialog.value = false }
                         ) {
                             Text(
-                                "Cancel",
+                                stringResource(R.string.cancel),
                                 fontFamily = FontFamily(Font(R.font.sf_pro)),
                                 fontWeight = FontWeight.Medium
                             )

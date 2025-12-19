@@ -91,6 +91,9 @@ import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -106,6 +109,7 @@ import androidx.core.net.toUri
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import me.kavishdevar.librepods.utils.popBackStackSafely
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import com.google.accompanist.permissions.isGranted
@@ -424,6 +428,8 @@ fun Main() {
                 }
             }
 
+            val statusBarPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+
             AnimatedVisibility(
                 visible = showBackButton.value,
                 enter = fadeIn(animationSpec = tween()) + scaleIn(initialScale = 0f, animationSpec = tween()),
@@ -432,11 +438,11 @@ fun Main() {
                     .align(Alignment.TopStart)
                     .padding(
                         start = 8.dp,
-                        top = (LocalWindowInfo.current.containerSize.width * 0.05f).dp
+                        top = statusBarPadding
                     )
             ) {
                 StyledIconButton(
-                        onClick = { navController.popBackStack() },
+                        onClick = { navController.popBackStackSafely() },
                         icon = "􀯶",
                         darkMode = isSystemInDarkTheme(),
                         backdrop = backButtonBackdrop

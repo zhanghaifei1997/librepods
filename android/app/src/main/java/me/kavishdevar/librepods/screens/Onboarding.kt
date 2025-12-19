@@ -74,6 +74,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
 import androidx.navigation.NavController
+import me.kavishdevar.librepods.utils.navigateDebounced
 import com.kyant.backdrop.backdrops.layerBackdrop
 import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
@@ -412,7 +413,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                                     } else {
                                         Button(
                                             onClick = {
-                                                navController.navigate("settings") {
+                                                navController.navigateDebounced("settings") {
                                                     popUpTo("onboarding") { inclusive = true }
                                                 }
                                             },
@@ -506,7 +507,7 @@ fun Onboarding(navController: NavController, activityContext: Context) {
                             showSkipDialog = false
                             RadareOffsetFinder.clearHookOffsets()
                             sharedPreferences.edit { putBoolean("skip_setup", true) }
-                            navController.navigate("settings") {
+                            navController.navigateDebounced("settings") {
                                 popUpTo("onboarding") { inclusive = true }
                             }
                         }

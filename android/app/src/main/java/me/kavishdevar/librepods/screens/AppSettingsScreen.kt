@@ -73,6 +73,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
 import androidx.navigation.NavController
+import me.kavishdevar.librepods.utils.navigateDebounced
 import com.kyant.backdrop.backdrops.layerBackdrop
 import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import dev.chrisbanes.haze.hazeSource
@@ -678,7 +679,7 @@ fun AppSettingsScreen(navController: NavController) {
                                         Toast.LENGTH_LONG
                                     ).show()
 
-                                    navController.navigate("onboarding") {
+                                    navController.navigateDebounced("onboarding") {
                                         popUpTo("settings") { inclusive = true }
                                     }
                                 } else {
